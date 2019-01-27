@@ -1,18 +1,17 @@
-const webpack = require("webpack");
-const path = require("path");
+const path = require('path');
 
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const devMode = process.env.NODE_ENV !== 'production'
+module.exports = (env, argv) => {
+  const devMode = argv.mode === 'development';
 
-module.exports = (env) => {
   return {
-    entry: "./src/app.js",
+    entry: './src/app.js',
     output: {
-      path: path.join(__dirname, "dist"),
-      filename: "bundle.js"
+      path: path.join(__dirname, devMode ? 'dist' : 'bundle'),
+      filename: 'bundle.js'
     },
     module: {
       rules: [
@@ -26,7 +25,7 @@ module.exports = (env) => {
           ],
         },
         {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           test: /\.js$/,
           exclude: /node_modules/
         },
@@ -34,15 +33,15 @@ module.exports = (env) => {
         //   test: /\.(jpe?g|png|gif|svg|ico)$/i,
         //   loaders: [
         //     {
-        //       loader: "file-loader",
+        //       loader: 'file-loader',
         //       options: {
-        //         hash: "sha512",
-        //         name: "[hash].[ext]",
-        //         outputPath: "../assets/compiled"
+        //         hash: 'sha512',
+        //         name: '[hash].[ext]',
+        //         outputPath: '../assets/compiled'
         //       }
         //     },
         //     {
-        //       loader: "image-webpack-loader",
+        //       loader: 'image-webpack-loader',
         //       query: {
         //         mozjpeg: {
         //           progressive: true,
@@ -68,15 +67,15 @@ module.exports = (env) => {
       compress: true,
       historyApiFallback: true,
       port: 3000,
+      proxy: {
+        '/api': 'http://localhost:8000',
+      }
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css",
+        filename: 'bundle.css',
+        chunkFilename: '[id].css',
       }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('development')
-      })
     ],
     optimization: {
       minimizer: [

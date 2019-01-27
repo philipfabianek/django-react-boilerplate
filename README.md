@@ -1,7 +1,7 @@
 # django-react-boilerplate (currently in development)
 Boilerplate for applications with Django backend and React frontend
 
-## Setup
+## Backend setup
 
 1.  Create virtualenv
 
@@ -39,6 +39,34 @@ python manage.py createsuperuser
 ```
 
 5.  Develop
+
+```
+python manage.py runserver
+```
+
+## Frontend setup
+
+1.  Install NPM modules
+
+```
+yarn
+```
+
+2.  Develop
+
+```
+yarn start
+```
+
+## Build
+
+Create frontend bundle
+
+```
+yarn run build
+```
+
+Run server
 
 ```
 python manage.py runserver
