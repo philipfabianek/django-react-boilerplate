@@ -2,7 +2,7 @@
   "name": "django-react-boilerplate",
   "version": "1.0.0",
   "description": "Django-React boilerplate React frontend",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --mode=development",
     "build": "webpack -p --mode=production",

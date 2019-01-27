@@ -28,6 +28,7 @@ class Author(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(Author, related_name='posts', on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
     headline = models.CharField(max_length=120)
     text = models.TextField()
     subject = models.ForeignKey(Subject, related_name='posts', on_delete=models.CASCADE)
@@ -44,4 +45,5 @@ class Post(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(Author, related_name='comments', on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)

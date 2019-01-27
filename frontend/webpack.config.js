@@ -8,7 +8,6 @@ module.exports = (env, argv) => {
   const devMode = argv.mode === 'development';
 
   return {
-    entry: './src/app.js',
     output: {
       path: path.join(__dirname, devMode ? 'dist' : 'bundle'),
       filename: 'bundle.js'

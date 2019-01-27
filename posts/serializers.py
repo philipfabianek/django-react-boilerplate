@@ -1,0 +1,18 @@
+from rest_framework import serializers
+
+
+class PostAuthorSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    name = serializers.CharField(max_length=60)
+
+
+class PostSubjectSerializer(serializers.Serializer):
+    name = serializers.CharField()
+
+
+class PostSerializer(serializers.Serializer):
+    author = PostAuthorSerializer()
+    created_on = serializers.DateTimeField()
+    headline = serializers.CharField(max_length=120)
+    text = serializers.CharField()
+    subject = PostSubjectSerializer()
