@@ -13,3 +13,8 @@ env/
 
 /djangoreact/localsettings.py
 *.env
+
+# Frontend
+
+/frontend/node_modules/
+/frontend/yarn.lock
