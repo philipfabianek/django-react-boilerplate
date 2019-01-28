@@ -18,3 +18,4 @@ env/
 
 /frontend/node_modules/
 /frontend/dist/
+/frontend/yarn-error.log
