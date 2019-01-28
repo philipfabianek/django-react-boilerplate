@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import AppBar from './AppBar';
+import PostsList from './PostsList';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,23 +25,16 @@ export default class App extends React.Component {
 
   render() {
     const { posts } = this.state;
+    const PostsListClasses = {
+      'container': 'posts-list',
+      'post': 'posts-list__post',
+      'button': 'posts-list__post__read-more'
+    };
 
     return (
       <div>
         <AppBar title='Posts' />
-        {
-          posts.length > 0 ? (
-            posts.map((p) => (
-              <div key={p.headline}>
-                <h3>{p.headline} ({p.subject.name})</h3>
-                <h5>By {p.author.name} on {new Date(p.created_on).toLocaleString()}</h5>
-                <p>{p.text}</p>
-              </div>
-            ))
-          ) : (
-            <p>No posts are available</p>
-          )
-        }
+        <PostsList posts={posts} classes={PostsListClasses} />
       </div>
     );
   };
