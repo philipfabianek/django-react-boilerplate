@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+import AppBar from './AppBar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,7 +27,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <h1>Django boilerplate</h1>
+        <AppBar title='Posts' />
         {
           posts.length > 0 ? (
             posts.map((p) => (
