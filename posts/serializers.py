@@ -11,6 +11,7 @@ class PostSubjectSerializer(serializers.Serializer):
 
 
 class PostSerializer(serializers.Serializer):
+    id = serializers.CharField()
     author = PostAuthorSerializer()
     created_on = serializers.DateTimeField()
     headline = serializers.CharField(max_length=120)
