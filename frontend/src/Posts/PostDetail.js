@@ -5,22 +5,10 @@ import PropTypes from 'prop-types';
 // Material-UI
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  container: {
-    margin: '0 auto',
-    marginTop: '2rem',
-    width: '90%',
-    maxWidth: '900px',
-  },
-  root: {
-    width: '100%',
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
+  // Incoming
 });
 
 class Post extends React.Component {

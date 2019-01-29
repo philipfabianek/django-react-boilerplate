@@ -32,8 +32,8 @@ class Post(models.Model):
     headline = models.CharField(max_length=120)
     text = models.TextField()
     subject = models.ForeignKey(Subject, related_name='posts', on_delete=models.CASCADE)
-    upvoters = models.ManyToManyField(Author, related_name='upvoted_posts')
-    downvoters = models.ManyToManyField(Author, related_name='downvoted_posts')
+    upvoters = models.ManyToManyField(Author, related_name='upvoted_posts', blank=True)
+    downvoters = models.ManyToManyField(Author, related_name='downvoted_posts', blank=True)
 
     def __str__(self):
         return '{} - {}'.format(self.subject, self.headline)
