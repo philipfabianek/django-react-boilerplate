@@ -1,7 +1,9 @@
-import axios from 'axios';
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+
+// State
+import { connect } from "react-redux";
 
 // Material-UI
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +15,12 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  text: {
+    fontSize: "16px",
+    letterSpacing: ".5px",
+    lineHeight: "155%",
+    marginTop: "1rem",
+  },
 });
 
 class PostsList extends React.Component {
@@ -23,18 +31,8 @@ class PostsList extends React.Component {
     };
   };
 
-  componentDidMount() {
-    this.fetchPosts();
-  };
-
-  fetchPosts() {
-    axios.get('/api_posts/fetch-posts')
-    .then(({ data }) => this.setState({ posts: data.posts }));
-  };
-
   render() {
-    const { classes } = this.props;
-    const { posts } = this.state;
+    const { classes, posts } = this.props;
 
     return (
       <div className='posts-list'>
@@ -48,12 +46,7 @@ class PostsList extends React.Component {
                   </Typography>
                   <Typography
                     component="p"
-                    style={{
-                      fontSize: "16px",
-                      letterSpacing: ".5px",
-                      lineHeight: "155%",
-                      marginTop: "1rem"
-                    }}
+                    className={classes.text}
                   >
                     {p.text}
                   </Typography>
@@ -80,4 +73,8 @@ PostsList.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(PostsList);
+const mapStateToProps = (state) => ({
+  posts: state.posts,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(PostsList));

@@ -2,67 +2,63 @@ import axios from 'axios';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// State
+import { connect } from "react-redux";
+
 // Material-UI
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  // Incoming
+  text: {
+    fontSize: "16px",
+    letterSpacing: ".5px",
+    lineHeight: "155%",
+    marginTop: "1rem",
+    whiteSpace: "pre-line",
+  },
 });
 
-class Post extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      post: null,
-    };
-  };
+const Post = (props) => {
+  const { classes, posts } = props;
+  const { id } = props.match.params;
 
-  componentDidMount() {
-    this.fetchPost();
-  };
+  if (!id) {
+    return null;
+  }
 
-  fetchPost() {
-    axios.get(`/api_posts/get-post/${this.props.match.params.id}`)
-    .then(({ data }) => this.setState({ post: data.post }));
-  };
+  const post = posts.filter((p) => p.id === id)[0];
 
-  render() {
-    const { classes } = this.props;
-    const { post } = this.state;
+  if (!post) {
+    return null;
+  }
 
-    if (!post) {
-      return null;
-    }
-
-    return (
-      <div>
-        <Paper className='post' elevation={1}>
-          <div className='post__content'>
-            <Typography variant="h5" component="h3">
-              {post.headline}
-            </Typography>
-            <Typography
-              component="p"
-              style={{
-                fontSize: "16px",
-                letterSpacing: ".5px",
-                lineHeight: "155%",
-                marginTop: "1rem"
-              }}
-            >
-              {post.text}
-            </Typography>
-          </div>
-        </Paper>
-      </div>
-    );
-  };
+  return (
+    <div>
+      <Paper className='post' elevation={1}>
+        <div className='post__content'>
+          <Typography variant="h5" component="h3">
+            {post.headline}
+          </Typography>
+          <Typography
+            component="p"
+            className={classes.text}
+          >
+            {post.text}
+          </Typography>
+        </div>
+      </Paper>
+    </div>
+  );
 };
 
 Post.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(Post);
+const mapStateToProps = (state) => ({
+  posts: state.posts,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Post));
