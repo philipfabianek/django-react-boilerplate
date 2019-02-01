@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
 
   return {
     output: {
-      path: path.join(__dirname, devMode ? 'dist' : 'bundle'),
+      path: path.join(__dirname, devMode ? 'dist' : 'build'),
       filename: 'bundle.js'
     },
     module: {
