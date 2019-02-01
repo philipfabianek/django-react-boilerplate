@@ -10,6 +10,12 @@ class PostSubjectSerializer(serializers.Serializer):
     name = serializers.CharField()
 
 
+class PostCommentSerializer(serializers.Serializer):
+    author = PostAuthorSerializer()
+    created_on = serializers.DateTimeField()
+    text = serializers.CharField()
+
+
 class PostSerializer(serializers.Serializer):
     id = serializers.CharField()
     author = PostAuthorSerializer()
@@ -17,3 +23,4 @@ class PostSerializer(serializers.Serializer):
     headline = serializers.CharField(max_length=120)
     text = serializers.CharField()
     subject = PostSubjectSerializer()
+    comments = PostCommentSerializer(many=True)

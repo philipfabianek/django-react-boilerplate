@@ -1,0 +1,17 @@
+.comments {
+  margin: 0 auto;
+  margin-top: 4rem;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.comment {
+  & {
+    margin-top: 1.2rem;
+    padding: 1rem 1.4rem;
+  }
+
+  &__text {
+    font-size: 16px;
+  }
+}

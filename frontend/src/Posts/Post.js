@@ -19,6 +19,7 @@ const styles = theme => ({
     marginTop: "1rem",
   },
   fullText: {
+    marginTop: "1.6rem",
     whiteSpace: "pre-line",
   },
 });

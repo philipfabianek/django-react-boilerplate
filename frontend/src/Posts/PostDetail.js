@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 
 // App components
 import Post from "./Post";
+import { CommentSection } from "../Comments";
 
 const PostDetail = (props) => {
   const { posts } = props;
@@ -22,7 +23,10 @@ const PostDetail = (props) => {
   }
 
   return (
-    <Post full post={post} />
+    <div>
+      <Post full post={post} />
+      <CommentSection comments={post.comments} />
+    </div>
   );
 };
 

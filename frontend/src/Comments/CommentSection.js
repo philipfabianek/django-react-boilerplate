@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,46 +7,54 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  // Incoming
+  text: {
+    fontSize: "16px",
+    letterSpacing: ".5px",
+    lineHeight: "155%",
+    marginTop: ".6rem",
+  },
 });
 
-class CommentSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: [],
-    };
-  };
+const CommentSection = (props) => {
+  const { classes, comments } = props;
 
-  componentDidMount() {
-    this.fetchComments();
-  };
+  const noComments = comments.length;
 
-  fetchComments() {
-    axios.get(`/api_posts/fetch-comments/${this.props.postId}`)
-    .then(({ data }) => this.setState({ comments: data.comments }));
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { comments } = this.state;
-
-    return (
-      <div>
-        {
-          comments.map((c, i) => {
-            console.log("comment:", c);
-            return <div></div>
-          })
-        }
-      </div>
-    );
-  };
+  return (
+    <div className="comments">
+      <Typography variant="h5" component="h3">
+        {noComments} comment{noComments !== 1 && "s"}
+      </Typography>
+      {
+        noComments > 0 && (
+          comments.map((c, i) => (
+            <Paper
+              className="comment"
+              elevation={1}
+              key={c.author.name + i}
+            >
+              <Typography variant="h6" component="h3">
+                by {c.author.name} <span className='post__author'>
+                  at {new Date(c.created_on).toLocaleString()}
+                </span>
+              </Typography>
+              <Typography
+                className={classes.text}
+                component="p"
+              >
+                {c.text}
+              </Typography>
+            </Paper>
+          ))
+        )
+      }
+    </div>
+  )
 };
 
 CommentSection.propTypes = {
-  classes: PropTypes.object,
-  postId: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(CommentSection);
