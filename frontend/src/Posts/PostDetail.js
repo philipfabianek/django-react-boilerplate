@@ -4,23 +4,11 @@ import PropTypes from 'prop-types';
 // State
 import { connect } from "react-redux";
 
-// Material-UI
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+// App components
+import Post from "./Post";
 
-const styles = theme => ({
-  text: {
-    fontSize: "16px",
-    letterSpacing: ".5px",
-    lineHeight: "155%",
-    marginTop: "1rem",
-    whiteSpace: "pre-line",
-  },
-});
-
-const Post = (props) => {
-  const { classes, posts } = props;
+const PostDetail = (props) => {
+  const { posts } = props;
   const { id } = props.match.params;
 
   if (!id) {
@@ -34,30 +22,16 @@ const Post = (props) => {
   }
 
   return (
-    <div>
-      <Paper className='post' elevation={1}>
-        <div className='post__content'>
-          <Typography variant="h5" component="h3">
-            {post.headline}
-          </Typography>
-          <Typography
-            component="p"
-            className={classes.text}
-          >
-            {post.text}
-          </Typography>
-        </div>
-      </Paper>
-    </div>
+    <Post full post={post} />
   );
 };
 
-Post.propTypes = {
-  classes: PropTypes.object,
+PostDetail.propTypes = {
+  posts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   posts: state.posts,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Post));
+export default connect(mapStateToProps)(PostDetail);

@@ -6,4 +6,52 @@
     width: 90%;
     max-width: 1200px;
   }
+
+  &--full {
+
+  }
+
+  &--read-more {
+    & {
+      margin-bottom: 2rem;
+    }
+
+    .post__content {
+      & {
+        max-height: 146px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      &:before, &:after {
+        background-color: #fff;
+        content: "";
+        height: 1.6rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 2;
+      }
+
+      &:before {
+        bottom: 1.6rem;
+        height: 1.6rem;
+        opacity: .5;
+      }
+
+      &:after {
+        bottom: 0;
+        opacity: .75;
+      }
+    }
+  }
+
+  &__author {
+    float: right;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    margin-right: 10px;
+    opacity: .6;
+  }
 }

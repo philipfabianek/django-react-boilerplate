@@ -4,39 +4,3 @@
   width: 90%;
   max-width: 900px;
 }
-
-.posts-list__post {
-  & {
-    margin-bottom: 2rem;
-    padding: 1.6rem 2rem 1rem 2rem;
-  }
-
-  &__content {
-    & {
-      max-height: 146px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    &:before, &:after {
-      background-color: #fff;
-      content: "";
-      height: 1.6rem;
-      position: absolute;
-      left: 0;
-      right: 0;
-      z-index: 2;
-    }
-
-    &:before {
-      bottom: 1.6rem;
-      height: 1.6rem;
-      opacity: .5;
-    }
-
-    &:after {
-      bottom: 0;
-      opacity: .75;
-    }
-  }
-}
