@@ -36,7 +36,7 @@ class Post(models.Model):
     downvoters = models.ManyToManyField(Author, related_name='downvoted_posts', blank=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.subject, self.headline)
+        return '{} - by {}'.format(self.headline, self.author.name)
 
     class Meta:
         verbose_name = 'Post'
@@ -47,3 +47,11 @@ class Comment(models.Model):
     author = models.ForeignKey(Author, related_name='comments', on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField()
+
+    def __str__(self):
+        return 'Comment on {} by {}'.format(self.post.headline, self.author.name)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
