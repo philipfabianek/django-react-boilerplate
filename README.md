@@ -5,13 +5,19 @@ Boilerplate for applications with Django backend and React frontend
 
 1.  Create virtualenv
 
-2.  Install required packages
+2.  Activate virtualenv
+
+```
+.\env\Scripts\activate
+```
+
+3.  Install required packages
 
 ```
 pip install -r requirements.txt
 ```
 
-3.  Setup your DB, create your localsettings.py based on example
+4.  Setup your DB, create your localsettings.py based on example
 
 ```
 # PostgreSQL config /djangoreact/localsettings.py
@@ -28,7 +34,7 @@ DATABASES = {
 }
 ```
 
-4.  Initial migration, create super user
+6.  Initial migration, create super user
 
 ```
 python manage.py migrate
@@ -38,7 +44,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-5.  Develop
+6.  Develop
 
 ```
 python manage.py runserver
