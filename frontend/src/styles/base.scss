@@ -7,3 +7,11 @@ body {
   box-sizing: border-box;
   text-decoration: none;
 }
+
+// Remove input yellow autocomplete background
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px #f6f6f6 inset !important;
+}

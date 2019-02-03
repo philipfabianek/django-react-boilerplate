@@ -8,6 +8,7 @@ import { startSetPosts } from "../actions/posts";
 
 // Post routes
 import AppBar from './AppBar';
+import { Signup } from '../authentication';
 import { PostsList, PostDetail } from '../Posts';
 
 // Initialize
@@ -24,6 +25,7 @@ export default () => {
         <div>
           <AppBar title='Posts' />
           <Route path="/" exact component={PostsList} />
+          <Route path="/signup" component={Signup} />
           <Route path="/post/:id" component={PostDetail} />
         </div>
       </Router>
