@@ -74,6 +74,7 @@ module.exports = (env, argv) => {
       port: 3000,
       proxy: {
         '/api': 'http://localhost:8000',
+        '/activate': 'http://localhost:8000',
       }
     },
     plugins: [
