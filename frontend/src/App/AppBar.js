@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 // Material-UI
@@ -10,7 +12,10 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+
+import { setAxiosHeaders } from '../utils/axios';
 
 const styles = theme => ({
   root: {
@@ -70,10 +75,23 @@ const styles = theme => ({
       },
     },
   },
+  logoutButton: {
+    color: "#fff",
+    letterSpacing: ".5px",
+    margin: "0 .5rem 0 1.5rem",
+  },
 });
 
 const SearchAppBar = (props) => {
   const { classes } = props;
+
+  const logout = () => {
+    axios.post("/api_auth/logout")
+    .then((res) => {
+      setAxiosHeaders();
+      props.history.push("/login");
+    })
+  };
 
   return (
     <div className={classes.root}>
@@ -98,6 +116,12 @@ const SearchAppBar = (props) => {
               }}
             />
           </div>
+          <Button
+            className={classes.logoutButton}
+            onClick={logout}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
@@ -106,7 +130,8 @@ const SearchAppBar = (props) => {
 
 SearchAppBar.propTypes = {
   classes: PropTypes.object,
+  history: PropTypes.object,
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(SearchAppBar);
+export default withStyles(styles)(withRouter(SearchAppBar));

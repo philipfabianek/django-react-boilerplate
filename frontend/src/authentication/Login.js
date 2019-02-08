@@ -136,6 +136,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object,
 };
 
 export default withStyles(styles)(Login);

@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email, validate_unicode_slug
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -35,6 +35,13 @@ class LoginView(APIView):
             return Response(status=200)
         else:
             raise AuthenticationFailed('Invalid login data')
+
+
+class LogoutView(APIView):
+    def post(self, request):
+        logout(request)
+
+        return Response(status=200)
 
 
 class SignupView(APIView):
