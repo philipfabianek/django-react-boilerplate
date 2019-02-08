@@ -15,7 +15,7 @@ const styles = theme => ({
     margin: "0 auto",
     marginTop: "4rem",
     width: "90%",
-    maxWidth: "600px",
+    maxWidth: "400px",
     textAlign: "center",
   },
   field: {
@@ -26,16 +26,14 @@ const styles = theme => ({
   },
 });
 
-class Signup extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       fields: {
-        username: "",
         email: "",
         password: "",
-        confirmPassword: "",
       },
       errors: {},
     };
@@ -54,7 +52,7 @@ class Signup extends React.Component {
     }
 
     if (!error) {
-      axios.post("/api_auth/signup", fields);
+      axios.post("/api_auth/login", fields);
     }
   };
 
@@ -62,10 +60,6 @@ class Signup extends React.Component {
     const { errors, fields } = this.state;
     const value = fields[key];
     let hasError = !validators[key](value);
-    if (key === 'confirmPassword' && !hasError) {
-      // passwords must equal
-      hasError = value !== fields['password']
-    }
 
     errors[key] = hasError;
     this.setState({ errors });
@@ -109,24 +103,22 @@ class Signup extends React.Component {
     return (
       <div className={classes.container}>
         <Typography variant="h4" component="h2">
-          Create an account
+          Log in
         </Typography>
 
         <form
           autoComplete="true"
           onSubmit={this.onSubmit}
         >
-          {this.renderField("username", "Username", { autoFocus: true, error: true })}
-          {this.renderField("email", "Email")}
+          {this.renderField("email", "Email", { autoFocus: true })}
           {this.renderField("password", "Password")}
-          {this.renderField("confirmPassword", "Confirm password", { type: "password" })}
 
           <Button
             className={classes.submitButton}
             type="submit"
             variant="contained"
             color="primary"
-            size="large"
+            size="medium"
           >
             Submit
           </Button>
@@ -136,8 +128,8 @@ class Signup extends React.Component {
   };
 };
 
-Signup.propTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Signup);
+export default withStyles(styles)(Login);

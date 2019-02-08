@@ -1,4 +1,3 @@
-from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -16,7 +15,7 @@ def send_confirmation_email(user, current_site):
         'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
         'token': account_activation_token.make_token(user),
     })
-    
+
     user.email_user(subject, message)
 
 
@@ -34,8 +33,7 @@ def activate(request, uidb64, token):
         user_profile.email_confirmed = True
         user.save()
         user_profile.save()
-        login(request, user)
 
-        return redirect('/')
+        return redirect('/login')
     else:
         return redirect('/confirmation-failed')

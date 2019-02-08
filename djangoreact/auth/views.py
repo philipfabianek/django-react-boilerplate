@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email, validate_unicode_slug
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -9,6 +9,32 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 
 from users.views import send_confirmation_email
+
+
+def authenticate_with_email(email, password):
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return None
+    else:
+        if user.check_password(password):
+            return user
+
+    return None
+
+
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
+
+        user = authenticate_with_email(email, password)
+
+        if user is not None:
+            login(request, user)
+            return Response(status=200)
+        else:
+            raise AuthenticationFailed('Invalid login data')
 
 
 class SignupView(APIView):
