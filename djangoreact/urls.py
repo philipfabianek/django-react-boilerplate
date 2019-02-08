@@ -22,8 +22,8 @@ urlpatterns = [
     # admin
     url(r'^admin/', admin.site.urls),
 
-    # user administration
-    url(r'^api_auth/signup', views.SignupView.as_view()),
+    # user authentication
+    url(r'^api_auth/', include('djangoreact.auth.urls')),
 
     # posts
     url(r'^api_posts/', include('posts.urls')),
