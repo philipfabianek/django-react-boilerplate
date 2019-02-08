@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import include, url
 
 from . import views
+from users import views as user_views
 
 urlpatterns = [
     # admin
@@ -24,6 +25,8 @@ urlpatterns = [
 
     # user authentication
     url(r'^api_auth/', include('djangoreact.auth.urls')),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        user_views.activate, name='activate'),
 
     # posts
     url(r'^api_posts/', include('posts.urls')),

@@ -1,5 +1,7 @@
-# PostgreSQL config
+# Email config
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# DB config (PostgreSQL)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

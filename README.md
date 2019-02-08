@@ -20,7 +20,8 @@ pip install -r requirements.txt
 4.  Setup your DB, create your localsettings.py based on example
 
 ```
-# PostgreSQL config /djangoreact/localsettings.py
+# DB and email config /djangoreact/localsettings.py
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DATABASES = {
     'default': {
