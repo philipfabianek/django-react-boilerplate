@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include, url
 
-from .views import index
+from . import views
 
 urlpatterns = [
     # admin
     url(r'^admin/', admin.site.urls),
 
+    # user administration
+    url(r'^api_auth/signup', views.SignupView.as_view()),
+
     # posts
     url(r'^api_posts/', include('posts.urls')),
 
     # serve React app
-    url(r'', index),
+    url(r'', views.index),
 ]
