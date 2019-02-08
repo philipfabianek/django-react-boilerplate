@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
-import postsReducer from "../reducers/posts";
+import { postsReducer, userReducer } from "../reducers";
 
 export default (state = {}) => {
   const devToolsExtension = global.__REDUX_DEVTOOLS_EXTENSION__ ? global.__REDUX_DEVTOOLS_EXTENSION__() : f => f;
@@ -9,6 +9,7 @@ export default (state = {}) => {
   return createStore(
     combineReducers({
       posts: postsReducer,
+      user: userReducer,
     }),
     state,
     compose(

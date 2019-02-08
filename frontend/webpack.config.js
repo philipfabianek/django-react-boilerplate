@@ -73,6 +73,7 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       port: 3000,
       proxy: {
+        '/initial-state': 'http://localhost:8000',
         '/api': 'http://localhost:8000',
         '/activate': 'http://localhost:8000',
       }

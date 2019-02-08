@@ -12,6 +12,6 @@ export const startSetPosts = () => {
         dispatch(setPosts(data.posts))
       }).catch((err) => {
         console.log(err);
-      })
+      });
   }
 };

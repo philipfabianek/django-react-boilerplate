@@ -31,6 +31,9 @@ urlpatterns = [
     # posts
     url(r'^api_posts/', include('posts.urls')),
 
+    # initial state
+    url(r'^initial-state', views.InitialState.as_view()),
+
     # serve React app
     url(r'', views.index),
 ]

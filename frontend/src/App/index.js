@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // State
 import { Provider as ReduxProvider } from "react-redux";
 import initStore from "./store";
+import { startSetUser } from "../actions/user";
 import { startSetPosts } from "../actions/posts";
 
 // Post routes
@@ -16,6 +17,7 @@ import "./init";
 
 // Store and initial fetch
 const store = initStore();
+store.dispatch(startSetUser());
 store.dispatch(startSetPosts());
 
 export default () => {

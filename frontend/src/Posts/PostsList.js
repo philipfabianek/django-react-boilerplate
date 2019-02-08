@@ -7,22 +7,20 @@ import { connect } from "react-redux";
 // App components
 import Post from "./Post";
 
-class PostsList extends React.Component {
-  render() {
-    const { posts } = this.props;
+const PostsList = (props) => {
+  const { posts } = props;
 
-    return (
-      <div className='posts-list'>
-        {
-          posts.map((p, i) => (
-            <div key={p.headline + i}>
-              <Post full={false} post={p} />
-            </div>
-          ))
-        }
-      </div>
-    );
-  };
+  return (
+    <div className='posts-list'>
+      {
+        posts.map((p, i) => (
+          <div key={p.headline + i}>
+            <Post full={false} post={p} />
+          </div>
+        ))
+      }
+    </div>
+  );
 };
 
 PostsList.propTypes = {
