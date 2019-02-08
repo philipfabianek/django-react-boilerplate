@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 
 import { getCSRFToken } from "./cookies";
 
+axios.defaults.headers.common['Accept'] = 'application/json; charset=UTF-8';
+
+export const setAxiosHeaders = () => {
+  const csrftoken = getCSRFToken();
+  axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
+};
+
 const axiosInstance = () => {
   const csrftoken = getCSRFToken();
 

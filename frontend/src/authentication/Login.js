@@ -10,6 +10,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import validators from "./validators";
 
+import { setAxiosHeaders } from '../utils/axios';
+
 const styles = theme => ({
   container: {
     margin: "0 auto",
@@ -52,7 +54,11 @@ class Login extends React.Component {
     }
 
     if (!error) {
-      axios.post("/api_auth/login", fields);
+      axios.post("/api_auth/login", fields)
+      .then((res) => {
+        setAxiosHeaders();
+        this.props.history.push("/");
+      })
     }
   };
 
