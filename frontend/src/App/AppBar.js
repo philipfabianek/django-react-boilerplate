@@ -171,7 +171,10 @@ class SearchAppBar extends React.Component {
               className={classes.menuItem}
               component={Link}
               onClick={this.handleMenuClose}
-              to="/login"
+              to={{
+                pathname: "/login",
+                state: { lastPage: this.props.location.pathname },
+              }}
             >Login</MenuItem>
           )}
           {!isLoggedIn && (

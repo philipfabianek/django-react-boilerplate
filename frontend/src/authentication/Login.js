@@ -60,7 +60,10 @@ class Login extends React.Component {
       .then((res) => {
         const { data } = res;
         this.props.loginUser(data);
-        this.props.history.push("/");
+        // redirect to last page that is optionally set using AppBar login link
+        const { state = {} } = this.props.location;
+        const { lastPage = "/" } = state;
+        this.props.history.push(lastPage);
       })
     }
   };
