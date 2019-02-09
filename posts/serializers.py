@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
+from djangoreact.serializers import UserSerializer
+
 
 class PostAuthorSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    name = serializers.CharField(max_length=60)
+    user = UserSerializer()
 
 
 class PostSubjectSerializer(serializers.Serializer):
@@ -11,7 +12,7 @@ class PostSubjectSerializer(serializers.Serializer):
 
 
 class PostCommentSerializer(serializers.Serializer):
-    author = PostAuthorSerializer()
+    author = UserSerializer()
     created_on = serializers.DateTimeField()
     text = serializers.CharField()
 

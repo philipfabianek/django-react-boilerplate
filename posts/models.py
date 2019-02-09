@@ -19,10 +19,10 @@ class Author(models.Model):
                                 on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Author {}'.format(self.user.name)
+        return 'Author {}'.format(self.user.username)
 
     class Meta:
-        ordering = ('user__name',)
+        ordering = ('user__username',)
         verbose_name = 'Author'
         verbose_name_plural = 'Authors'
 

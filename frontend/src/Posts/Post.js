@@ -32,7 +32,7 @@ const Post = (props) => {
       <div className='post__content'>
         <Typography variant="h5" component="h3">
           {post.headline} <span className='post__author'>
-            by {post.author.name} at {new Date(post.created_on).toLocaleString()}
+            by {post.author.user.username} at {new Date(post.created_on).toLocaleString()}
           </span>
         </Typography>
         <Typography
