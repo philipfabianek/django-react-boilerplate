@@ -32,9 +32,12 @@ class LoginView(APIView):
         user = authenticate_with_email(email, password)
 
         if user is not None:
-            login(request, user)
-            user_data = UserSerializer(user).data
-            return Response(user_data, status=200)
+            if user.user_profile.email_confirmed and user.is_active:
+                login(request, user)
+                user_data = UserSerializer(user).data
+                return Response(user_data, status=200)
+            else:
+                raise AuthenticationFailed('Account is not confirmed')
         else:
             raise AuthenticationFailed('Invalid login data')
 

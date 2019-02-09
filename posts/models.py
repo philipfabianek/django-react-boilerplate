@@ -39,6 +39,11 @@ class Post(models.Model):
     def __str__(self):
         return '{} - by {}'.format(self.headline, self.author.user.username)
 
+    def add_comment(self, author, text):
+        comment = Comment.objects.create(author=author, post=self, text=text)
+        comment.save()
+        return comment
+
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'

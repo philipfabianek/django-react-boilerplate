@@ -25,7 +25,10 @@ const PostDetail = (props) => {
   return (
     <div>
       <Post full post={post} />
-      <CommentSection comments={post.comments} />
+      <CommentSection
+        comments={post.comments}
+        postId={post.id}
+      />
     </div>
   );
 };

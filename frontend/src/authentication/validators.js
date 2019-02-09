@@ -1,11 +1,11 @@
 import validator from "validator";
 
-const alphanumericRegex = /^[0-9a-zA-Z]+$/;
-
-const minLength = (val, minLength) => val.length >= minLength;
-const maxLength = (val, maxLength) => val.length <= maxLength;
-const isAlphanumeric = val => alphanumericRegex.test(val);
-const isString = val => typeof val === "string";
+import {
+  minLength,
+  maxLength,
+  isAlphanumeric,
+  isString,
+} from "../utils/commonValidators";
 
 export const validateUserName = val => isString(val) && isAlphanumeric(val) && minLength(val, 2) && maxLength(val, 30);
 export const validateEmail = val => validator.isEmail(val);
