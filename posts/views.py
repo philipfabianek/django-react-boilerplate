@@ -13,8 +13,13 @@ class GetPost(APIView):
         post = get_object_or_404(Post, pk=pk)
         post_data = PostSerializer(post).data
 
+        is_favorite = False
+        if not request.user.is_anonymous and request.user in post.upvoters.all():
+            is_favorite = True
+
         return Response({
-            'post': post_data
+            'post': post_data,
+            'is_favorite': is_favorite,
         }, status=200)
 
 
@@ -24,6 +29,20 @@ class FetchPosts(APIView):
         posts_data = PostSerializer(posts, many=True).data
 
         return Response({ 'posts': posts_data }, status=200)
+
+
+class ChangeFavorite(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+
+        if request.user in post.upvoters.all():
+            post.upvoters.remove(request.user)
+        else:
+            post.upvoters.add(request.user)
+
+        return Response(status=200)
 
 
 class CommentOnPost(APIView):

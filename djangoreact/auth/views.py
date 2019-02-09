@@ -32,7 +32,7 @@ class LoginView(APIView):
         user = authenticate_with_email(email, password)
 
         if user is not None:
-            if user.user_profile.email_confirmed and user.is_active:
+            if (user.user_profile.email_confirmed and user.is_active) or user.is_superuser:
                 login(request, user)
                 user_data = UserSerializer(user).data
                 return Response(user_data, status=200)

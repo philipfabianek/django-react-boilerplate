@@ -1,44 +1,68 @@
+import axios from 'axios';
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// State
-import { connect } from "react-redux";
 
 // App components
 import Post from "./Post";
 import { CommentSection } from "../Comments";
 
-const PostDetail = (props) => {
-  const { posts } = props;
-  const { id } = props.match.params;
+class PostDetail extends React.Component {
+  constructor(props) {
+    super(props);
 
-  if (!id) {
-    return null;
-  }
+    this.state = {
+      post: null,
+      isFavorite: null,
+    };
 
-  const post = posts.filter((p) => p.id === id)[0];
+    this.postId = props.match.params.id;
+  };
 
-  if (!post) {
-    return null;
-  }
+  componentDidMount() {
+    const { postId } = this;
+    if (!postId) {
+      return null;
+    }
 
-  return (
-    <div>
-      <Post full post={post} />
-      <CommentSection
-        comments={post.comments}
-        postId={post.id}
-      />
-    </div>
-  );
+    axios.get(`/api_posts/get-post/${postId}`)
+    .then(({ data }) => this.setState({
+      post: data.post,
+      isFavorite: data.is_favorite,
+    }));
+  };
+
+  changeFavorite = () => {
+    const { id } = this.state.post;
+
+    axios.post(`/api_posts/change-favorite/${id}`)
+    .then(() => this.setState({ isFavorite: !this.state.isFavorite }));
+  };
+
+  render() {
+    const { post, isFavorite } = this.state;
+    if (!post) {
+      return null;
+    }
+
+    return (
+      <div>
+        <Post
+          post={post}
+          isFavorite={isFavorite}
+          full
+          changeFavorite={this.changeFavorite}
+        />
+        <CommentSection
+          comments={post.comments}
+          postId={post.id}
+        />
+      </div>
+    );
+  };
 };
 
 PostDetail.propTypes = {
-  posts: PropTypes.array.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  posts: state.posts,
-});
-
-export default connect(mapStateToProps)(PostDetail);
+export default PostDetail;
