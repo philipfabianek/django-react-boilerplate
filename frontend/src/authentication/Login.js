@@ -80,7 +80,7 @@ class Login extends React.Component {
   onFieldChange = (value, key) => {
     const { errors, fields } = this.state;
 
-    fields[key] = value;
+    fields[key] = value.trim();
     this.setState({ fields }, () => {
       // The error can disappear even before blur
       if (errors[key]) {
