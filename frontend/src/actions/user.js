@@ -17,11 +17,11 @@ export const startSetUser = () => {
 };
 
 
-export const login = (user) => ({
+export const loginUser = (user) => ({
   type: "LOGIN",
   user,
 });
 
-export const logout = () => ({
+export const logoutUser = () => ({
   type: "LOGOUT",
 });

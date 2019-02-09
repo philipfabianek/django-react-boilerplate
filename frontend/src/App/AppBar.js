@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
+
+// state
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/user";
 
 // Material-UI
 import AppBar from '@material-ui/core/AppBar';
@@ -15,7 +20,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
-import { setAxiosHeaders } from '../utils/axios';
+import { isEmpty } from "../utils/object";
 
 const styles = theme => ({
   root: {
@@ -29,6 +34,7 @@ const styles = theme => ({
     marginRight: 20,
   },
   title: {
+    color: "#fff",
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -88,10 +94,12 @@ const SearchAppBar = (props) => {
   const logout = () => {
     axios.post("/api_auth/logout")
     .then((res) => {
-      setAxiosHeaders();
+      props.logoutUser();
       props.history.push("/login");
     })
   };
+
+  const isLoggedIn = !isEmpty(props.user);
 
   return (
     <div className={classes.root}>
@@ -100,9 +108,11 @@ const SearchAppBar = (props) => {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            {props.title}
-          </Typography>
+          <Link to="/">
+            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+              {props.title}
+            </Typography>
+          </Link>
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -116,12 +126,22 @@ const SearchAppBar = (props) => {
               }}
             />
           </div>
-          <Button
-            className={classes.logoutButton}
-            onClick={logout}
-          >
-            Logout
-          </Button>
+          {
+            isLoggedIn ? (
+              <Button
+                className={classes.logoutButton}
+                onClick={logout}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Link to="/login">
+                <Button className={classes.logoutButton}>
+                  Login
+                </Button>
+              </Link>
+            )
+          }
         </Toolbar>
       </AppBar>
     </div>
@@ -129,9 +149,22 @@ const SearchAppBar = (props) => {
 };
 
 SearchAppBar.propTypes = {
-  classes: PropTypes.object,
-  history: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withRouter(SearchAppBar));
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logoutUser()),
+});
+
+export default compose(
+  withRouter,
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(SearchAppBar);

@@ -2,6 +2,10 @@ import axios from 'axios';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// state
+import { connect } from "react-redux";
+import { loginUser } from "../actions/user";
+
 // Material-UI
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -9,8 +13,6 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 import validators from "./validators";
-
-import { setAxiosHeaders } from '../utils/axios';
 
 const styles = theme => ({
   container: {
@@ -56,7 +58,8 @@ class Login extends React.Component {
     if (!error) {
       axios.post("/api_auth/login", fields)
       .then((res) => {
-        setAxiosHeaders();
+        const { data } = res;
+        this.props.loginUser(data);
         this.props.history.push("/");
       })
     }
@@ -136,7 +139,11 @@ class Login extends React.Component {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object,
+  history: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (user) => dispatch(loginUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Login));

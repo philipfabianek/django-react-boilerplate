@@ -54,7 +54,8 @@ class Signup extends React.Component {
     }
 
     if (!error) {
-      axios.post("/api_auth/signup", fields);
+      axios.post("/api_auth/signup", fields)
+      .then(() => this.props.history.push("/login"));
     }
   };
 
@@ -138,6 +139,7 @@ class Signup extends React.Component {
 
 Signup.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Signup);

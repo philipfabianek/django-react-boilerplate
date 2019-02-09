@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 
 from users.views import send_confirmation_email
+from djangoreact.serializers import UserSerializer
 
 
 def authenticate_with_email(email, password):
@@ -32,7 +33,8 @@ class LoginView(APIView):
 
         if user is not None:
             login(request, user)
-            return Response(status=200)
+            user_data = UserSerializer(user).data
+            return Response(user_data, status=200)
         else:
             raise AuthenticationFailed('Invalid login data')
 
@@ -69,8 +71,8 @@ class SignupView(APIView):
             raise AuthenticationFailed('Username must be unique')
 
         user, created = User.objects.get_or_create(
-            email__iexact=email,
-            defaults={ 'username': username, 'email': email.lower(), 'is_active': False }
+            email=email,
+            defaults={ 'username': username, 'email': email, 'is_active': False }
         )
 
         if created:
