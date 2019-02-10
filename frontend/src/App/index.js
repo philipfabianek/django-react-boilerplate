@@ -26,7 +26,7 @@ export default () => {
       <Router>
         <div>
           <AppBar title='Posts' />
-          <Route path="/" exact component={PostsList} />
+          <Route path="/recent" component={PostsList} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/confirmation-failed" component={ConfirmationFailed} />

@@ -11,19 +11,19 @@ import { logoutUser } from "../actions/user";
 // Material-UI
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MoreIcon from '@material-ui/icons/MoreVert';
 
 import IconButton from '@material-ui/core/IconButton';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 
+// Side navigation
+import SideNavigation from "./SideNavigation"
+
+// Utils
 import { isEmpty } from "../utils/object";
 
 const styles = theme => ({
@@ -86,50 +86,22 @@ const styles = theme => ({
       },
     },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-  menuItem: {
-    width: '90px',
-  },
 });
 
 class SearchAppBar extends React.Component {
   state = {
-    anchorEl: null,
-    mobileMoreAnchorEl: null,
+    isNavigationOpen: false,
   };
 
-  handleProfileMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleMenuClose = () => {
-    this.setState({ anchorEl: null });
-    this.handleMobileMenuClose();
-  };
-
-  handleMobileMenuOpen = event => {
-    this.setState({ mobileMoreAnchorEl: event.currentTarget });
-  };
-
-  handleMobileMenuClose = () => {
-    this.setState({ mobileMoreAnchorEl: null });
+  toggleNavigation = () => {
+    this.setState({
+      isNavigationOpen: !this.state.isNavigationOpen,
+    });
   };
 
   onLogout = () => {
     axios.post("/api_auth/logout")
     .then((res) => {
-      this.handleMenuClose();
       this.props.logoutUser();
       this.props.history.push("/login");
     })
@@ -137,66 +109,30 @@ class SearchAppBar extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const isMenuOpen = !!anchorEl;
-    const isMobileMenuOpen = !!mobileMoreAnchorEl;
     const isLoggedIn = !isEmpty(this.props.user);
-
-    const renderMenu = (type) => {
-      const isMobile = type === 'mobile';
-      const anchorElement = isMobile ? mobileMoreAnchorEl : anchorEl;
-      const isOpen = isMobile ? isMobileMenuOpen : isMenuOpen;
-
-      return (
-        <Menu
-          anchorEl={anchorElement}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          disableAutoFocusItem
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transitionDuration={{
-            enter: 500,
-            exit: 0,
-          }}
-          open={isOpen}
-          onClose={this.handleMenuClose}
-        >
-          {isLoggedIn && (
-            <MenuItem
-              className={classes.menuItem}
-              onClick={this.onLogout}
-            >Logout</MenuItem>
-          )}
-          {!isLoggedIn && (
-            <MenuItem
-              className={classes.menuItem}
-              component={Link}
-              onClick={this.handleMenuClose}
-              to={{
-                pathname: "/login",
-                state: { lastPage: this.props.location.pathname },
-              }}
-            >Login</MenuItem>
-          )}
-          {!isLoggedIn && (
-            <MenuItem
-              className={classes.menuItem}
-              component={Link}
-              onClick={this.handleMenuClose}
-              to="/signup"
-            >Sign up</MenuItem>
-          )}
-        </Menu>
-      );
-    };
+    const lastPage = this.props.location.pathname;
 
     return (
       <div className={classes.root}>
+        <SideNavigation
+          lastPage={lastPage}
+          isLoggedIn={isLoggedIn}
+          open={this.state.isNavigationOpen}
+          onClose={this.toggleNavigation}
+          onLogout={this.onLogout}
+        />
+
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            <IconButton
+              aria-label="Open drawer"
+              className={classes.menuButton}
+              onClick={this.toggleNavigation}
+              color="inherit"
+            >
               <MenuIcon />
             </IconButton>
-            <Link to="/">
+            <Link to="/recent">
               <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                 {this.props.title}
               </Typography>
@@ -214,25 +150,8 @@ class SearchAppBar extends React.Component {
                 }}
               />
             </div>
-            <div className={classes.sectionDesktop}>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                <MoreIcon />
-              </IconButton>
-            </div>
           </Toolbar>
         </AppBar>
-        {renderMenu('desktop')}
-        {renderMenu('mobile')}
       </div>
     );
   };
