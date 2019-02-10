@@ -8,8 +8,8 @@ from .serializers import UserSerializer
 
 def default_context_processor(request):
     context = {
-        'bundle_css_path': 'bundle.css',
-        'bundle_js_path': 'bundle.js',
+        'bundle_css_path': 'build/bundle.css',
+        'bundle_js_path': 'build/bundle.js',
     }
 
     return context

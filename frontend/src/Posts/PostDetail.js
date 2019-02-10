@@ -18,6 +18,8 @@ class PostDetail extends React.Component {
     isFavorite: null,
   };
 
+  postId = this.props.match.params.id;
+
   componentDidMount() {
     const { postId } = this;
     if (!postId) {
@@ -49,7 +51,7 @@ class PostDetail extends React.Component {
     const isLoggedIn = !isEmpty(user);
 
     return (
-      <div>
+      <div style={{ paddingBottom: "6rem" }}>
         <Post
           post={post}
           isFavorite={isFavorite}

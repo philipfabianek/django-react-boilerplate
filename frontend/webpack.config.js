@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
 
   return {
     output: {
-      path: path.join(__dirname, devMode ? 'dist' : 'build'),
+      path: devMode ? path.join(__dirname, 'dist') : path.join(__dirname, '..', 'static', 'build'),
       filename: 'bundle.js'
     },
     module: {
@@ -34,37 +34,6 @@ module.exports = (env, argv) => {
           test: /\.js$/,
           exclude: /node_modules/
         },
-        // {
-        //   test: /\.(jpe?g|png|gif|svg|ico)$/i,
-        //   loaders: [
-        //     {
-        //       loader: 'file-loader',
-        //       options: {
-        //         hash: 'sha512',
-        //         name: '[hash].[ext]',
-        //         outputPath: '../assets/compiled'
-        //       }
-        //     },
-        //     {
-        //       loader: 'image-webpack-loader',
-        //       query: {
-        //         mozjpeg: {
-        //           progressive: true,
-        //         },
-        //         gifsicle: {
-        //           interlaced: false,
-        //         },
-        //         optipng: {
-        //           optimizationLevel: 4,
-        //         },
-        //         pngquant: {
-        //           quality: '75-90',
-        //           speed: 3,
-        //         }
-        //       }
-        //     }
-        //   ]
-        // }
       ]
     },
     devServer: {
@@ -73,8 +42,9 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       port: 3000,
       proxy: {
-        '/initial-state': 'http://localhost:8000',
         '/api': 'http://localhost:8000',
+        '/static': 'http://localhost:8000',
+        '/initial-state': 'http://localhost:8000',
         '/activate': 'http://localhost:8000',
       }
     },

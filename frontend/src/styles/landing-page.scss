@@ -1,0 +1,48 @@
+.landing-page {
+  & {
+    background-image: url('/static/assets/landing-page.svg');
+    background-size: cover;
+    background-position: center;
+    height: 0;
+    padding: 0;
+    padding-bottom: 100vh;
+    width: 100%;
+  }
+
+  &__action {
+    margin-top: 100px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  &__or {
+    margin: 26px auto 20px;
+    position: relative;
+    text-align: center;
+    width: 800px;
+
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+
+      background-color: #fff;
+      height: 2px;
+      width: 270px;
+    }
+
+    &:before {
+      left: 100px;
+    }
+
+    &:after {
+      right: 100px;
+    }
+  }
+}

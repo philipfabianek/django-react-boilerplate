@@ -18,9 +18,10 @@ const styles = theme => ({
   container: {
     margin: "0 auto",
     marginTop: "4rem",
+    paddingBottom: "4rem",
+    textAlign: "center",
     width: "90%",
     maxWidth: "400px",
-    textAlign: "center",
   },
   field: {
     marginTop: "1.2rem",
