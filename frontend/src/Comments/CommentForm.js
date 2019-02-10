@@ -21,15 +21,11 @@ const styles = theme => ({
 });
 
 class CommentForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: "",
-      error: null,
-    };
+  state = {
+    text: "",
+    error: null,
   };
-
+  
   onSubmit = event => {
     event.preventDefault();
 

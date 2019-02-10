@@ -13,15 +13,9 @@ import { CommentSection } from "../Comments";
 import { isEmpty } from "../utils/object";
 
 class PostDetail extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      post: null,
-      isFavorite: null,
-    };
-
-    this.postId = props.match.params.id;
+  state = {
+    post: null,
+    isFavorite: null,
   };
 
   componentDidMount() {

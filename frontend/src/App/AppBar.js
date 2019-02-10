@@ -108,6 +108,11 @@ class SearchAppBar extends React.Component {
   };
 
   render() {
+    // For LandingPage
+    if (this.props.location.pathname === "/") {
+      return null;
+    }
+
     const { classes } = this.props;
     const isLoggedIn = !isEmpty(this.props.user);
     const lastPage = this.props.location.pathname;
@@ -160,6 +165,7 @@ class SearchAppBar extends React.Component {
 SearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };

@@ -20,11 +20,8 @@ const styles = theme => ({
 });
 
 class CommentSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newComments: [],
-    };
+  state = {
+    newComments: [],
   };
 
   onSubmit = text => {

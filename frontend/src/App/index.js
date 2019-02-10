@@ -8,6 +8,7 @@ import { startSetUser } from "../actions/user";
 
 // Post routes
 import AppBar from './AppBar';
+import LandingPage from '../LandingPage';
 import { Login, Signup, ConfirmationFailed } from '../authentication';
 import { RecentPosts, FavoritePosts, PostDetail } from '../Posts';
 
@@ -24,6 +25,7 @@ export default () => {
       <Router>
         <div>
           <AppBar title='Posts' />
+          <Route path="/" exact component={LandingPage} />
           <Route path="/recent" component={RecentPosts} />
           <Route path="/favorite" component={FavoritePosts} />
           <Route path="/login" component={Login} />

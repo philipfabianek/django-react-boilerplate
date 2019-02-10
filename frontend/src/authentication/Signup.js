@@ -27,18 +27,14 @@ const styles = theme => ({
 });
 
 class Signup extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fields: {
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      errors: {},
-    };
+  state = {
+    fields: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    errors: {},
   };
 
   onSubmit = event => {
