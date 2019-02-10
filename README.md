@@ -35,14 +35,10 @@ DATABASES = {
 }
 ```
 
-6.  Initial migration, create super user
+5.  Initial migration
 
 ```
 python manage.py migrate
-```
-
-```
-python manage.py createsuperuser
 ```
 
 6.  Develop
