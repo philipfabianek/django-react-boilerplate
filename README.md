@@ -81,7 +81,7 @@ Run server
 python manage.py runserver
 ```
 
-## P.S.
+## P. S.
 
 If you plan to regularly use this, I would suggest you to create a few python scripts and also adjust the main frontend logic to your needs.
 
