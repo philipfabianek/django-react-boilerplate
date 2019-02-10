@@ -31,6 +31,17 @@ class FetchPosts(APIView):
         return Response({ 'posts': posts_data }, status=200)
 
 
+class FavoritePosts(APIView):
+    def get(self, request):
+        if request.user.is_anonymous:
+            return Response(status=403)
+
+        favorite_posts = Post.objects.filter(upvoters__in=[request.user])
+        favorite_posts_data = PostSerializer(favorite_posts, many=True).data
+
+        return Response({ 'posts': favorite_posts_data }, status=200)
+
+
 class ChangeFavorite(APIView):
     permission_classes = (IsAuthenticated, )
 
