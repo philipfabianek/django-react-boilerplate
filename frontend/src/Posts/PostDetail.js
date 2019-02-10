@@ -2,9 +2,15 @@ import axios from 'axios';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// state
+import { connect } from "react-redux";
+
 // App components
 import Post from "./Post";
 import { CommentSection } from "../Comments";
+
+// Utils
+import { isEmpty } from "../utils/object";
 
 class PostDetail extends React.Component {
   constructor(props) {
@@ -40,21 +46,28 @@ class PostDetail extends React.Component {
 
   render() {
     const { post, isFavorite } = this.state;
+
     if (!post) {
       return null;
     }
+
+    const { user } = this.props;
+    const isLoggedIn = !isEmpty(user);
 
     return (
       <div>
         <Post
           post={post}
           isFavorite={isFavorite}
+          isLoggedIn={isLoggedIn}
           full
           changeFavorite={this.changeFavorite}
         />
         <CommentSection
           comments={post.comments}
+          isLoggedIn={isLoggedIn}
           postId={post.id}
+          user={user}
         />
       </div>
     );
@@ -63,6 +76,11 @@ class PostDetail extends React.Component {
 
 PostDetail.propTypes = {
   match: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-export default PostDetail;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(PostDetail);

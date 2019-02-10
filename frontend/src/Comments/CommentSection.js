@@ -2,17 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// state
-import { connect } from "react-redux";
-
 // Material-UI
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 import CommentForm from "./CommentForm";
-
-import { isEmpty } from "../utils/object";
 
 const styles = theme => ({
   text: {
@@ -45,13 +40,12 @@ class CommentSection extends React.Component {
   };
 
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, isLoggedIn } = this.props;
     const comments = [
       ...this.props.comments,
       ...this.state.newComments,
     ];
 
-    const isLoggedIn = !isEmpty(user);
     const numberOfComments = comments.length;
 
     return (
@@ -97,11 +91,8 @@ CommentSection.propTypes = {
   classes: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
   postId: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(CommentSection));
+export default withStyles(styles)(CommentSection);

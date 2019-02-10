@@ -10,7 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 // Utils
 import validators from "./validators";
-// import { isEmpty } from "../utils/object";
 
 const styles = theme => ({
   text: {

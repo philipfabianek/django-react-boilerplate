@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 const Post = (props) => {
-  const { classes, full, post, isFavorite } = props;
+  const { classes, full, post, isFavorite, isLoggedIn } = props;
 
   return (
     <Paper className={`post ${full ? 'post--full' : 'post--read-more'}`} elevation={1}>
@@ -52,7 +52,7 @@ const Post = (props) => {
         </Typography>
       </div>
       {
-        full && (
+        full && isLoggedIn && (
           <div className="post__make-favorite">
             <Fab
               aria-label="Make favorite"
@@ -99,6 +99,7 @@ Post.propTypes = {
   isFavorite: PropTypes.bool,
   post: PropTypes.object.isRequired,
   changeFavorite: PropTypes.func,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(Post);
