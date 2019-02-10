@@ -1,7 +1,9 @@
-import PostsList from './PostsList';
+import RecentPosts from './RecentPosts';
+import FavoritePosts from './FavoritePosts';
 import PostDetail from './PostDetail';
 
 export {
-  PostsList,
+  RecentPosts,
+  FavoritePosts,
   PostDetail,
 };

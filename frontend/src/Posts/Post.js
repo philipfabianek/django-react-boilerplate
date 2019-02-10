@@ -99,7 +99,7 @@ Post.propTypes = {
   isFavorite: PropTypes.bool,
   post: PropTypes.object.isRequired,
   changeFavorite: PropTypes.func,
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool,
 };
 
 export default withStyles(styles)(Post);

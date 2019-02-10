@@ -48,10 +48,12 @@ const SideNavigation = (props) => {
         </Link>
         {
           isLoggedIn && (
-            <ListItem button>
-              <ListItemIcon><Favorite /></ListItemIcon>
-              <ListItemText primary='Favorite posts' />
-            </ListItem>
+            <Link to="/favorite" onClick={props.onClose}>
+              <ListItem button>
+                <ListItemIcon><Favorite /></ListItemIcon>
+                <ListItemText primary='Favorite posts' />
+              </ListItem>
+            </Link>
           )
         }
       </List>
