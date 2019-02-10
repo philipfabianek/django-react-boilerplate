@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
   return {
     output: {
       path: devMode ? path.join(__dirname, 'dist') : path.join(__dirname, '..', 'static', 'build'),
-      filename: 'bundle.js'
+      filename: 'bundle.js',
     },
     module: {
       rules: [
@@ -51,7 +51,7 @@ module.exports = (env, argv) => {
     plugins: [
       new MiniCssExtractPlugin({
         filename: 'bundle.css',
-        chunkFilename: '[id].css',
+        chunkFilename: 'chunk.css',
       }),
     ],
     optimization: {
