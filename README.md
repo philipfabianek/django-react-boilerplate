@@ -1,5 +1,11 @@
-# django-react-boilerplate (currently in development)
+# django-react-boilerplate
 Boilerplate for applications with Django backend and React frontend
+
+## Download and requirements
+
+* Download or clone this repository
+
+* Install Python (3.7), Node (I've used 9.11.2), PostgreSQL and Yarn
 
 ## Backend setup
 
@@ -74,3 +80,9 @@ Run server
 ```
 python manage.py runserver
 ```
+
+## P.S.
+
+If you plan to regularly use this, I would suggest you to create a few python scripts and also adjust the main frontend logic to your needs.
+
+If you found an issue or a bug, feel free to create an issue.
