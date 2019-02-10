@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 // Material-UI
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -25,9 +25,11 @@ const styles = theme => ({
     marginTop: "1.6rem",
     whiteSpace: "pre-line",
   },
-  favoriteIcon: {
-    marginLeft: ".2rem",
-    padding: "9px",
+  fab: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -52,24 +54,25 @@ const Post = (props) => {
       {
         full && (
           <div className="post__make-favorite">
-            <Typography
-              color='primary'
-              variant='subtitle2'
-            >
-              Make favorite
-            </Typography>
-            <IconButton
-              color="inherit"
-              className={classes.favoriteIcon}
-              aria-label="Change favorite"
+            <Fab
+              aria-label="Make favorite"
+              className={classes.fab}
               onClick={props.changeFavorite}
+              variant="extended"
+              size="medium"
             >
               {isFavorite ? (
-                <Favorite color='primary' fontSize='small' />
+                <Favorite color='primary' className={classes.extendedIcon} />
               ) : (
-                <FavoriteBorder color='primary' fontSize='small' />
+                <FavoriteBorder color='primary' className={classes.extendedIcon} />
               )}
-            </IconButton>
+              <Typography
+                color='primary'
+                variant='subtitle2'
+              >
+                Favorite
+              </Typography>
+            </Fab>
           </div>
         )
       }
